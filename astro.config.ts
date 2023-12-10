@@ -30,7 +30,14 @@ export default defineConfig({
       ],
     ],
     rehypePlugins: [
-      rehypeKatex
+      [ rehypeKatex,
+	{
+	  macros : {
+	    '\\semant': '\\llbracket{#1}\\rrbracket',
+	    '\\infer': '\\dfrac{#2}{#3}\\texttt{#1}',
+	  }
+	}
+      ]
     ],
     shikiConfig: {
       theme: "one-dark-pro",

@@ -7,9 +7,8 @@ tags:
   - pl
 ---
 
-
 # Introduction
-Computer programs are complicated. How do we develop a better understanding of how they work? _Denotational semantics_ is the subarea of programming languages where people study the behaviors of programs by mapping them into some _semantic domain_ of mathematical objects.
+Programs are complicated. How do we develop a better understanding of how they work? _Denotational semantics_ is the subarea of programming languages where people study the behaviors of programs by mapping them into some _semantic domain_ of mathematical objects.
 
 The [_lambda calculus_](https://www.cs.cornell.edu/courses/cs6110/2023sp/lectures/lec02.pdf) is one of the simplest programming languages there is. Written in Backus-Naur form (BNF), it only has three kinds of expressions:
 
@@ -57,15 +56,14 @@ $$
 Here, $$\texttt{Unit}$$ is the type with one element $$\texttt{unit}$$. we also consider the following typing rules:
 
 $$
-\begin{prooftree}\AXC{ }\RightLabel{Unit}\UIC{$\Gamma\vdash\texttt{unit}:\texttt{Unit}$}\end{prooftree}
+\infer{Unit}{\;}{\Gamma\vdash\texttt{unit}:\texttt{Unit}}
 $$
 
-<!-- $$ -->
-<!-- \begin{prooftree} -->
-<!-- \AXC{ } -->
-<!-- \RightLabel{Var} -->
-<!-- \UIC{$\Gamma,x:A\vdash x:A$} -->
-<!-- \end{prooftree} -->
+$$
+\infer{Axiom}{\;}{\Gamma,x:A\vdash x:A}
+$$
+
+
 <!-- \quad -->
 <!-- \begin{prooftree} -->
 <!-- \AXC{$\Gamma\vdash e:A$} -->
@@ -129,7 +127,7 @@ $$
 
 Here $$\text{Id}_\mathbf{C}$$ is the identity functor on $$\mathbf{C}$$, and the caligraphic $$\mathcal{Id}$$ denotes identity natural transformations on the respective functors.
 
-An alternative formulation of \eqref{eq:unit} is useful as follows. For each object $$B\in\mathbf{C}$$, the component $$\epsilon_{A,B}$$ of the unit $$\epsilon_A$$ has the universal property such that, for any $$C\in\mathbf{C}$$ and morphism $$f$$ from $$(\underline{C}\times A)$$ (the product functor applied to $$C$$) to $$B$$, there exists a unique morphism $$curry(f)$$ from $$C$$ to $$B^A$$ (the exponential functor applied to $$B$$) making the diagram commute:
+An alternative formulation of the unit equation is useful as follows. For each object $$B\in\mathbf{C}$$, the component $$\epsilon_{A,B}$$ of the unit $$\epsilon_A$$ has the universal property such that, for any $$C\in\mathbf{C}$$ and morphism $$f$$ from $$(\underline{C}\times A)$$ (the product functor applied to $$C$$) to $$B$$, there exists a unique morphism $$curry(f)$$ from $$C$$ to $$B^A$$ (the exponential functor applied to $$B$$) making the diagram commute:
 <div align="center">
 <!-- https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXHVuZGVybGluZXtDfVxcdGltZXMgQSJdLFswLDIsIkJeQVxcdGltZXMgQSJdLFsyLDIsIkIiXSxbMSwyLCJcXGVwc2lsb25fe0EsQn0iLDJdLFswLDEsIlxcZXhpc3RzIVxcO2N1cnJ5KGYpXFx0aW1lcyBcXHRleHR7aWR9X0EiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwyLCJmIl1d -->
 <iframe class="quiver-embed" src="https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXHVuZGVybGluZXtDfVxcdGltZXMgQSJdLFswLDIsIkJeQVxcdGltZXMgQSJdLFsyLDIsIkIiXSxbMSwyLCJcXGVwc2lsb25fe0EsQn0iLDJdLFswLDEsIlxcZXhpc3RzIVxcO2N1cnJ5KGYpXFx0aW1lcyBcXHRleHR7aWR9X0EiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwyLCJmIl1d&embed" width="420" height="400" style="border-radius: 8px; border: none;"></iframe>
