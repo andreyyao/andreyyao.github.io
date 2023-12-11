@@ -32,7 +32,8 @@ export default defineConfig({
     rehypePlugins: [
       [ rehypeKatex,
 	{
-	  macros : {
+	  globalGroup: true,
+	  macros: {
 	    '\\semant': '\\llbracket{#1}\\rrbracket',
 	    '\\infer': '\\dfrac{#2}{#3}\\texttt{#1}',
 	  }
