@@ -1,0 +1,14 @@
+---
+const { date, college, course } = Astro.props
+---
+<div id="TeachingCard">
+  <h1>{date}, {college}</h1>
+  <h1>{course}</h1>
+  <slot />  <!-- children will go here -->
+</div>
+
+<style>
+TeachingCard {
+  @apply flex w-full flex-col items-center
+}
+</style>
