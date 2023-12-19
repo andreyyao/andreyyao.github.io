@@ -180,9 +180,9 @@ $$
 # Conclusion
 This was mostly just an exercise for me to make sure that the categorical semantics of STLC is sensible. Indeed, we have verified parts of the analogy from the nlab "computational trilogy" table, that the semantic respects $$\beta$$ and $$\eta$$ equivalence. Actually, the proof came down exactly to the unit and counit equations, just as in the table.
 
-Note that our version of STLC doesn't contain any "ground types" besides $$\TUnit$$. One can simply add more ground types like $$\texttt{Int}, \texttt{Bool}, \texttt{Number}$$, etc. The translation will then be incorporated to map each ground type to some designated object in our CCC, and the proof still works because it was defined inductively on the typing derivations. However, in this way the categorical semantics will not be able to enforce fine-grained equational constraints like `40+2=42` on the operational semantics.
+Note that our version of STLC doesn't contain any "ground types" besides $$\TUnit$$. One can simply add more ground types like $$\texttt{Int}, \texttt{Bool}, \texttt{Number}$$, etc. The translation will then be incorporated to map each ground type to some designated object in our CCC, and the proof still works because it was defined inductively on the typing derivations. However, in this way the categorical semantics will not be able to enforce fine-grained equational constraints like `40 + 2 = 42` on the operational semantics.
 
 # References
-1. {% reference pierce1991BasicCategoryTheory --file /zotero.bib %}
-2. {% reference maclane1978CategoriesWorkingMathematician --file /zotero.bib %}
+1. B. C. Pierce, Basic Category Theory for Computer Scientists. The MIT Press, 1991. doi: 10.7551/mitpress/1524.001.0001.
+2. S. Mac Lane, Categories for the Working Mathematician, vol. 5. in Graduate Texts in Mathematics, vol. 5. New York, NY: Springer, 1978. doi: 10.1007/978-1-4757-4721-8.
 3. https://ncatlab.org/nlab/show/computational+trilogy

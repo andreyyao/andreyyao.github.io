@@ -1,19 +1,24 @@
 ---
 import { SITE } from "@config";
+import { getCollection } from 'astro:content';
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import TeachingCard from "@components/TeachingCard.astro";
+
+const allTeachings = await getCollection("teaching")
 ---
 
-<Layout title={`404 Not Found | ${SITE.title}`}>
+<Layout title={`Teaching experience | ${SITE.title}`}>
   <Header />
-
+  <div>This is where I will post about my journey learning Astro.</div>
   <main id="main-content">
       <TeachingCard
-	  date="2019 FA"
-		college="Cornell University"
-	  course="CS 2802 Discrete Structures - Honors"/>
+	  institution="Cornell University"
+	  startDate="2019 FA"
+	  course="CS 2802 Discrete Structures - Honors"
+	  position="hehe"
+	  description="temp"/>
   </main>
 
   <Footer />

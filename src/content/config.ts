@@ -23,4 +23,17 @@ const blog = defineCollection({
     }),
 });
 
+const teaching = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      institution: z.string().default("UW-Madison"),
+      course: z.string(),
+      position: z.string(),
+      startDate: z.date(),
+      description: z.string().default("TA"),
+      canonicalURL: z.string().optional(),
+    }),
+});
+
 export const collections = { blog };
