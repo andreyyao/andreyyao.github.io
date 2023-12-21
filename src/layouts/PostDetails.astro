@@ -53,7 +53,7 @@ const ogUrl = new URL(
     </article>
 
     <ul class="tags-container">
-      {tags.map(tag => <Tag name={slugifyStr(tag)} />)}
+	{tags.map(tag => <Tag name={slugifyStr(tag)} />)}
     </ul>
   </main>
   <Footer />
@@ -68,5 +68,9 @@ const ogUrl = new URL(
  }
  .tags-container {
      @apply my-8;
+ }
+ /* This is fixing the dim color of katex in dark mode */
+ .prose {
+     color: var(--color-text-base);
  }
 </style>

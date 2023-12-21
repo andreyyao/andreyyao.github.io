@@ -10,7 +10,7 @@ const teachings = await getCollection("teaching");
 
 const { Content } = await teachings[0].render();
 
-const formatDate = (inputDate) => {
+const formatDate = (inputDate: Date) => {
     const date = new Date(inputDate);
     const month = date.toLocaleString('default', { month: 'short' });
     const year = date.getFullYear();
