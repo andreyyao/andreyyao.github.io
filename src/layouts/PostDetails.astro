@@ -8,20 +8,20 @@ import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
-  post: CollectionEntry<"blog">;
+    post: CollectionEntry<"blog">;
 }
 
 const { post } = Astro.props;
 
 const { title, author, description, ogImage, canonicalURL, pubDatetime, tags } =
-  post.data;
+post.data;
 
 const { Content } = await post.render();
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
-  ogImageUrl ?? `/blog/${slugifyStr(title)}.png`,
-  Astro.url.origin
+    ogImageUrl ?? `/blog/${slugifyStr(title)}.png`,
+    Astro.url.origin
 ).href;
 ---
 
@@ -33,20 +33,15 @@ const ogUrl = new URL(
   canonicalURL={canonicalURL}
 >
   <Header />
-    <head>
-      <!-- Katex -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
-       crossorigin="anonymous">
-    </head>
-    <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
     <button
-      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
-      onclick="history.back()"
+	class="focus-outline mb-2 mt-8 flex hover:opacity-75"
+	onclick="history.back()"
     >
       <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
+      ><path
+	   d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+       ></path>
       </svg><span>Go back</span>
     </button>
   </div>
@@ -65,13 +60,13 @@ const ogUrl = new URL(
 </Layout>
 
 <style>
-  main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
-  }
-  .post-title {
-    @apply text-2xl font-semibold text-skin-accent;
-  }
-  .tags-container {
-    @apply my-8;
-  }
+ main {
+     @apply mx-auto w-full max-w-3xl px-4 pb-12;
+ }
+ .post-title {
+     @apply text-2xl font-semibold text-skin-accent;
+ }
+ .tags-container {
+     @apply my-8;
+ }
 </style>

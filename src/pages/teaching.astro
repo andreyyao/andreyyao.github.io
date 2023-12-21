@@ -6,21 +6,30 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import TeachingCard from "@components/TeachingCard.astro";
 
-const allTeachings = await getCollection("teaching")
+const teachings = await getCollection("teaching");
+
+const { Content } = await teachings[0].render();
+
+const formatDate = (inputDate) => {
+    const date = new Date(inputDate);
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    return `${month} ${year}`;
+};
 ---
 
 <Layout title={`Teaching experience | ${SITE.title}`}>
   <Header />
-  <div>This is where I will post about my journey learning Astro.</div>
-  <main id="main-content">
-      <TeachingCard
-	  institution="Cornell University"
-	  startDate="2019 FA"
-	  course="CS 2802 Discrete Structures - Honors"
-	  position="hehe"
-	  description="temp"/>
-  </main>
-
+    {teachings.map((teaching) =>
+      <main id="main-content">
+	<TeachingCard
+	    institution={teaching.data.institution}
+	    startDate={formatDate(teaching.data.startDate)}
+	    course={teaching.data.course}
+	    position={teaching.data.position}>
+	  <Content />
+        </TeachingCard>
+      </main>)}
   <Footer />
 </Layout>
 
