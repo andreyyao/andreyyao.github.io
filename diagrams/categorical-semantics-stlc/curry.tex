@@ -1,0 +1,17 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+
+\begin{document}
+
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXHVuZGVybGluZXtDfVxcdGltZXMgQSJdLFswLDIsIkJeQVxcdGltZXMgQSJdLFsyLDIsIkIiXSxbMSwyLCJcXGVwc2lsb25fe0EsQn0iLDJdLFswLDEsIlxcZXhpc3RzIVxcO2N1cnJ5KGYpXFx0aW1lcyBcXHRleHR7aWR9X0EiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwyLCJmIl1d
+\begin{tikzcd}
+  {\underline{C}\times A} \\
+  \\
+  {B^A\times A} && B
+  \arrow["{\epsilon_{A,B}}"', from=3-1, to=3-3]
+  \arrow["{\exists!\;curry(f)\times \text{id}_A}"', dashed, from=1-1, to=3-1]
+  \arrow["f", from=1-1, to=3-3]
+\end{tikzcd}
+
+\end{document}

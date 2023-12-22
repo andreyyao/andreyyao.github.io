@@ -69,3 +69,8 @@ pnpm-debug.log*
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+
+*.aux
+*.log
+*.dvi
+diagrams/*.svg

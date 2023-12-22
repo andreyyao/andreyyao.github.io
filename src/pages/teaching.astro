@@ -6,10 +6,6 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import TeachingCard from "@components/TeachingCard.astro";
 
-const teachings = await getCollection("teaching");
-
-const { Content } = await teachings[0].render();
-
 const formatDate = (inputDate: Date) => {
     const date = new Date(inputDate);
     const month = date.toLocaleString('default', { month: 'short' });
@@ -20,21 +16,47 @@ const formatDate = (inputDate: Date) => {
 
 <Layout title={`Teaching experience | ${SITE.title}`}>
   <Header />
-    {teachings.map((teaching) =>
       <main id="main-content">
 	<TeachingCard
-	    institution={teaching.data.institution}
-	    startDate={formatDate(teaching.data.startDate)}
-	    course={teaching.data.course}
-	    position={teaching.data.position}>
-	  <Content />
+	    institution="Cornell University"
+	    startDate={formatDate("2019-08-08")}
+	    course="CS 2802 Discrete Structures - Honors"
+	    position="Undergrad TA">
+	  <ul class="list-disc list-inside">
+	    <li> Hmmm </li>
+	    <li> Hmmm </li>
+	  </ul>
         </TeachingCard>
-      </main>)}
-  <Footer />
+	<!--  -->
+	<TeachingCard
+	    institution="Cornell University"
+	    startDate={formatDate("2021-08-01")}
+	    course="CS 2112 OOP Design & Data Structures ha ha ha"
+	    position="Undergrad TA">
+	  <ul class="list-disc list-inside">
+	    <li> Graded programming and written assignments </li>
+	    <li> Held office hours </li>
+	  </ul>
+	</TeachingCard>
+		<!--  -->
+	<TeachingCard
+	    institution="Cornell University"
+	    startDate={formatDate("2020-08-08")}
+	    course="CS 2802 Discrete Structures - Honors"
+	    position="Undergrad TA">
+	  <ul class="list-disc list-inside">
+	    <li> Graded written assignments </li>
+	    <li> Helped design exam questions </li>
+	    <li> Held office hours </li>
+	  </ul>
+	</TeachingCard>
+      </main>
+      <Footer />
 </Layout>
 
 <style>
-#main-content {
-    @apply mx-auto flex max-w-3xl flex-1 items-center justify-center;
-}
+ #main-content {
+   @apply mx-auto flex max-w-3xl flex-1 items-center justify-center;
+   flex-direction: column;
+ }
 </style>

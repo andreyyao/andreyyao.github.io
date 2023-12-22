@@ -1,0 +1,18 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+
+\begin{document}
+
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJbXFwhW1xcR2FtbWFdXFwhXVxcdGltZXMgW1xcIVtBXVxcIV0iXSxbMCwyLCJbXFwhW0JdXFwhXV57W1xcIVtBXVxcIV19XFx0aW1lcyBbXFwhW0FdXFwhXSJdLFsyLDIsIltcXCFbQl1cXCFdIl0sWzEsMiwiXFxlcHNpbG9uX3tBLEJ9IiwyXSxbMCwxLCJnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMiwiZiJdXQ==
+\begin{tikzcd}
+  {[\![\Gamma]\!]\times [\![A]\!]} \\
+  \\
+  {[\![B]\!]^{[\![A]\!]}\times [\![A]\!]} && {[\![B]\!]}
+  \arrow["{\epsilon_{A,B}}"', from=3-1, to=3-3]
+  \arrow["g"', dashed, from=1-1, to=3-1]
+  \arrow["f", from=1-1, to=3-3]
+\end{tikzcd}
+
+\end{document}
