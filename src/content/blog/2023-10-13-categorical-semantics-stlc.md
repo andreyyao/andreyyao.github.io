@@ -11,6 +11,10 @@ $$
 \gdef\TUnit{\texttt{Unit}}
 \gdef\fst{\texttt{fst}}
 \gdef\snd{\texttt{snd}}
+\gdef\step{\Rightarrow}
+\gdef\id{\text{id}}
+\gdef\pair#1#2{\langle {#1}, {#2}\rangle}
+\gdef\semant#1{\llbracket {#1} \rrbracket}
 $$
 
 # Introduction
@@ -106,34 +110,56 @@ An alternative formulation of the unit equation is useful as follows. For each o
 
 ## The translation
 
-We are finally ready to define the semantic translation! The double brackets $$\llbracket \;\rrbracket $$ takes something from the type theory and maps it into the CCC we specified. On types, it is defined inductive on the syntax and maps each type to an object in the CCC. Again, the following translations are taken from Pierce's _Basic Category for Computer Scientists_:
+We are finally ready to define the semantic translation! The double brackets $$\semant{ \;} $$ takes something from the type theory and maps it into the CCC we specified. On types, it is defined inductive on the syntax and maps each type to an object in the CCC. Again, the following translations are taken from Pierce's _Basic Category for Computer Scientists_:
 
 $$
 \begin{align*}
-\llbracket \TUnit\rrbracket &\triangleq 1_\mathbf{C}\\
-\llbracket A\times B\rrbracket &\triangleq \llbracket A\rrbracket  \times \llbracket B\rrbracket \\
-\llbracket A\to B\rrbracket &\triangleq \llbracket B\rrbracket ^{\llbracket A\rrbracket }
+\semant{ \TUnit} &\triangleq 1_\mathbf{C}\\
+\semant{ A\times B} &\triangleq \semant{ A}  \times \semant{ B} \\
+\semant{ A\to B} &\triangleq \semant{ B} ^{\semant{ A} }
 \end{align*}
 $$
 
-The translation for the typing context is inductively defined on the number of variables: $$\llbracket \varnothing\rrbracket \triangleq 1_\mathbf{C}$$ and $$\llbracket \Gamma,x:A\rrbracket \triangleq \llbracket \Gamma\rrbracket \times \llbracket A\rrbracket $$.
+The translation for the typing context is inductively defined on the number of variables: $$\semant{ \varnothing} \triangleq 1_\mathbf{C}$$ and $$\semant{ \Gamma,x:A} \triangleq \semant{ \Gamma} \times \semant{ A} $$.
 
 Finally, we inductively define the translation on the typing derivations:
 
-| Derivation                                                  | Translation                                                                                                                 | Domain                                                        | Target                                                   |
-| ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------- |
-| $$\llbracket \Gamma\vdash \texttt{unit}:\TUnit\rrbracket $$ | $$!_{\llbracket \Gamma\rrbracket }$$                                                                                        | $$\llbracket \Gamma\rrbracket $$                              | $$1_\mathbf{C}$$                                         |
-| $$\llbracket \Gamma,x:A\vdash x:A\rrbracket $$              | $$\pi_2$$                                                                                                                   | $$\llbracket \Gamma\rrbracket \times\llbracket A\rrbracket $$ | $$\llbracket A\rrbracket $$                              |
-| $$\llbracket \Gamma,y:B\vdash e:A\rrbracket $$              | $$\llbracket \Gamma\vdash e:A\rrbracket \circ\pi_1$$                                                                        | $$\llbracket \Gamma\rrbracket \times\llbracket A\rrbracket $$ | $$\llbracket B\rrbracket $$                              |
-| $$\llbracket \Gamma\vdash \lambda x:A.e:A\to B\rrbracket $$ | $$curry(\llbracket \Gamma,x:A\vdash e:B\rrbracket )$$                                                                       | $$\llbracket \Gamma\rrbracket $$                              | $$\llbracket B\rrbracket ^{\llbracket A\rrbracket }$$    |
-| $$\llbracket \Gamma\vdash e_1\;e_2:B\rrbracket $$           | $$\epsilon_{A,B}\circ\langle\llbracket \Gamma\vdash e_1:A\to B\rrbracket ,\llbracket \Gamma\vdash e_2:A\rrbracket \rangle$$ | $$\llbracket \Gamma\rrbracket $$                              | $$\llbracket B\rrbracket $$                              |
-| $$\llbracket \Gamma\vdash (e_1,e_2):A\times B\rrbracket $$  | $$\langle\llbracket \Gamma\vdash e_1:A\rrbracket ,\llbracket \Gamma\vdash e_2:B\rrbracket \rangle$$                         | $$\llbracket \Gamma\rrbracket $$                              | $$\llbracket A\rrbracket \times\llbracket B\rrbracket $$ |
-| $$\llbracket \Gamma\vdash \fst\;e:A\rrbracket $$            | $$\pi_1\circ \llbracket \Gamma\vdash e:A\times B\rrbracket $$                                                               | $$\llbracket \Gamma\rrbracket $$                              | $$\llbracket A\rrbracket $$                              |
-| $$\llbracket \Gamma\vdash \snd\;e:B\rrbracket $$            | $$\pi_2\circ \llbracket \Gamma\vdash e:A\times B\rrbracket $$                                                               | $$\llbracket \Gamma\rrbracket $$                              | $$\llbracket B\rrbracket $$                              |
+| Derivation                                       | Translation                                                                                           | Domain                                  | Target                             |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------- | --------------------------------------- | ---------------------------------- |
+| $$\semant{ \Gamma\vdash \texttt{unit}:\TUnit} $$ | $$!_{\semant{ \Gamma} }$$                                                                             | $$\semant{ \Gamma} $$                   | $$1_\mathbf{C}$$                   |
+| $$\semant{ \Gamma,x:A\vdash x:A} $$              | $$\pi_2$$                                                                                             | $$\semant{ \Gamma} \times\semant{ A} $$ | $$\semant{ A} $$                   |
+| $$\semant{ \Gamma,y:B\vdash e:A} $$              | $$\semant{ \Gamma\vdash e:A} \circ\pi_1$$                                                             | $$\semant{ \Gamma} \times\semant{ A} $$ | $$\semant{ B} $$                   |
+| $$\semant{ \Gamma\vdash \lambda x:A.e:A\to B} $$ | $$curry(\semant{ \Gamma,x:A\vdash e:B} )$$                                                            | $$\semant{ \Gamma} $$                   | $$\semant{ B} ^{\semant{ A} }$$    |
+| $$\semant{ \Gamma\vdash e_1\;e_2:B} $$           | $$\epsilon_{A,B}\circ\langle\semant{ \Gamma\vdash e_1:A\to B} ,\semant{ \Gamma\vdash e_2:A} \rangle$$ | $$\semant{ \Gamma} $$                   | $$\semant{ B} $$                   |
+| $$\semant{ \Gamma\vdash (e_1,e_2):A\times B} $$  | $$\langle\semant{ \Gamma\vdash e_1:A} ,\semant{ \Gamma\vdash e_2:B} \rangle$$                         | $$\semant{ \Gamma} $$                   | $$\semant{ A} \times\semant{ B} $$ |
+| $$\semant{ \Gamma\vdash \fst\;e:A} $$            | $$\pi_1\circ \semant{ \Gamma\vdash e:A\times B} $$                                                    | $$\semant{ \Gamma} $$                   | $$\semant{ A} $$                   |
+| $$\semant{ \Gamma\vdash \snd\;e:B} $$            | $$\pi_2\circ \semant{ \Gamma\vdash e:A\times B} $$                                                    | $$\semant{ \Gamma} $$                   | $$\semant{ B} $$                   |
 
 For this particular formulation of STLC, it just so happens that for any fixed context, if a term is typeable then there is a unique typing rule that applies to it. This can be seen just from the fact that each term grammar branch appears in the conclusion of exactly one typing rule. Thus, we can be a little hand-wavy and define the translations on the term syntax directly.
 
 # Semantics respects equivalence
+
+## $$\beta$$-equivalence
+
+$$\beta$$-equivalence is about how to reduce expressions to simpler ones. First define a Call-by-value small-step operational semantics:
+
+$$
+\infer{Subst}{}{(\lambda x: A.\;e_1)\;e_2 \step e_1[x\mapsto e_2]}
+\quad
+\infer{Func}{e_1 \step e_1'}{e_1\;e_2 \step e_1' e_2}
+\quad
+\dots
+$$
+
+As we can see, these rules tell us how elimination forms can "eliminate" introduction forms. The $$e[x\mapsto e']$$ notation denotes (capture-avoiding) substitution of free occurences of $$x$$ for $$e'$$ inside $$e$$. And we can denote $$\beta$$-_equivalence_, written $$\equiv_\beta$$, as the reflexive-symmetric-transitive closure of this relation. However, proving that beta equivalence plays well with the semantics is now try because substitution is defined inductively on the syntax!
+
+We will prove the following helpful lemma: If $$\Gamma\vdash \lambda x: A.\;e_1$$ and $$\Gamma\vdash e_2 : A$$, then
+
+$$
+\semant{\Gamma\vdash e_2[x \mapsto e_1] : B}=\semant{\Gamma,x: A\vdash e_1: B}\circ \pair{\id_{\semant{\Gamma}}}{\semant{\Gamma\vdash e_1: A}}
+$$
+
+Proof: Induction on the typing derivation of $$B$$.
 
 ## $$\eta$$-equivalence
 
@@ -153,24 +179,24 @@ Suppose $$\Gamma\vdash \lambda x:A.e\;x:A\to B$$. Then $$e$$ must be of type $$A
 
 $$
 \begin{align*}
-&\llbracket \Gamma\vdash \lambda x:A.e\;x:A\to B\rrbracket \\
-=&curry(\llbracket \Gamma,x:A \vdash e\;x:B\rrbracket )\\
-=&curry(\epsilon_{A,B}\circ \langle\llbracket \Gamma,x:A\vdash e:A\to B\rrbracket ,\llbracket \Gamma,x:A\vdash x:A\rrbracket \rangle)\\
-=&curry(\epsilon_{A,B}\circ \langle\llbracket \Gamma,x:A\vdash e:A\to B\rrbracket ,\pi_2\rangle)\\
-=&curry(\epsilon_{A,B}\circ \langle\llbracket \Gamma\vdash e:A\to B\rrbracket \circ\pi_1,\pi_2\rangle)
+&\semant{ \Gamma\vdash \lambda x:A.e\;x:A\to B} \\
+=&curry(\semant{ \Gamma,x:A \vdash e\;x:B} )\\
+=&curry(\epsilon_{A,B}\circ \langle\semant{ \Gamma,x:A\vdash e:A\to B} ,\semant{ \Gamma,x:A\vdash x:A} \rangle)\\
+=&curry(\epsilon_{A,B}\circ \langle\semant{ \Gamma,x:A\vdash e:A\to B} ,\pi_2\rangle)\\
+=&curry(\epsilon_{A,B}\circ \langle\semant{ \Gamma\vdash e:A\to B} \circ\pi_1,\pi_2\rangle)
 \end{align*}
 $$
 
-Tho a mouthful, $$\epsilon_{A,B}\circ\langle\llbracket \Gamma\vdash e:A\to B\rrbracket \circ\pi_1,\pi_2\rangle$$ is a morphism from $$\llbracket \Gamma\rrbracket \times \llbracket A\rrbracket $$ to $$\llbracket B\rrbracket $$. If we set $$C$$ to be $$\llbracket \Gamma\rrbracket $$, and $$f$$ as $$\epsilon_{A,B}\circ\langle\llbracket \Gamma\vdash e:A\to B\rrbracket \circ\pi_1,\pi_2\rangle$$, then the diagram for the unit equation becomes
+Tho a mouthful, $$\epsilon_{A,B}\circ\langle\semant{ \Gamma\vdash e:A\to B} \circ\pi_1,\pi_2\rangle$$ is a morphism from $$\semant{ \Gamma} \times \semant{ A} $$ to $$\semant{ B} $$. If we set $$C$$ to be $$\semant{ \Gamma} $$, and $$f$$ as $$\epsilon_{A,B}\circ\langle\semant{ \Gamma\vdash e:A\to B} \circ\pi_1,\pi_2\rangle$$, then the diagram for the unit equation becomes
 
 ![Unit](../../assets/diagrams/categorical-semantics-stlc/unit.svg)
 
-Where did the mystery $$g$$ come from? Well, since $$f$$ is of the form $$\epsilon_{A,B}$$ composed with _something_, we can just define $$g$$ to be the _something_, aka $$\langle\llbracket \Gamma\vdash e:A\to B\rrbracket \circ\pi_1,\pi_2\rangle$$, and the above diagram will trivially commute. But, note $$g$$ is actually equal to $$\llbracket \Gamma\vdash e:A\to B\rrbracket \times \text{id}_{\llbracket A\rrbracket }$$.
+Where did the mystery $$g$$ come from? Well, since $$f$$ is of the form $$\epsilon_{A,B}$$ composed with _something_, we can just define $$g$$ to be the _something_, aka $$\langle\semant{ \Gamma\vdash e:A\to B} \circ\pi_1,\pi_2\rangle$$, and the above diagram will trivially commute. But, note $$g$$ is actually equal to $$\semant{ \Gamma\vdash e:A\to B} \times \text{id}_{\semant{ A} }$$.
 
-Finally, for the real kicker, we invoke the uniqueness of $$curry$$ in the universal property of $$\epsilon_A$$, so that $$\llbracket \Gamma\vdash e:A\to B\rrbracket =curry(\epsilon_{A,B}\circ \langle\llbracket \Gamma\vdash e:A\to B\rrbracket \circ\pi_1,\pi_2\rangle)$$. Thus,
+Finally, for the real kicker, we invoke the uniqueness of $$curry$$ in the universal property of $$\epsilon_A$$, so that $$\semant{ \Gamma\vdash e:A\to B} =curry(\epsilon_{A,B}\circ \langle\semant{ \Gamma\vdash e:A\to B} \circ\pi_1,\pi_2\rangle)$$. Thus,
 
 $$
-\llbracket \Gamma\vdash \lambda x:A.e\;x:A\to B\rrbracket =\llbracket \Gamma\vdash e:A\to B\rrbracket
+\semant{ \Gamma\vdash \lambda x:A.e\;x:A\to B} =\semant{ \Gamma\vdash e:A\to B}
 $$
 
 # Conclusion
@@ -184,3 +210,4 @@ Note that our version of STLC doesn't contain any "ground types" besides $$\TUni
 1. B. C. Pierce, Basic Category Theory for Computer Scientists. The MIT Press, 1991. doi: 10.7551/mitpress/1524.001.0001.
 2. S. Mac Lane, Categories for the Working Mathematician, vol. 5. in Graduate Texts in Mathematics, vol. 5. New York, NY: Springer, 1978. doi: 10.1007/978-1-4757-4721-8.
 3. https://ncatlab.org/nlab/show/computational+trilogy
+4. https://hustmphrrr.github.io/asset/pdf/comp-exam.pdf
