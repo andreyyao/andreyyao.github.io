@@ -1,7 +1,7 @@
 ---
 const { startDate, institution, course, position } = Astro.props
 
-const formatDate = (inputDate: String) => {
+const formatDate = (inputDate: string) => {
     const date = new Date(inputDate);
     const month = date.toLocaleString('en-US', { month: 'short' });
     const year = date.getFullYear();
@@ -68,7 +68,6 @@ const formatDate = (inputDate: String) => {
  }
  #badge {
    width: 20%;
-   background-color: rgb(var(--color-border));
    border-radius: 2px;
    padding: 4px 4px;
  }

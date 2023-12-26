@@ -10,8 +10,8 @@
     --color-accent: 0, 108, 172;
     --color-card: 230, 230, 230;
     --color-card-muted: 205, 205, 205;
-    --color-border: 220, 180, 155;
-    --color-faint-fill: 229, 217, 209;
+    --color-border: 220, 200, 180;
+    --color-faint-fill: 234, 227, 219;
   }
   html[data-theme="dark"] {
     --color-fill: 33, 39, 55;
