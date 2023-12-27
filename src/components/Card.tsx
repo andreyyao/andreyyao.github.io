@@ -1,5 +1,5 @@
 import { slugifyStr } from "@utils/slugify";
-import Datetime from "./Datetime";
+import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {

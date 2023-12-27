@@ -1,70 +1,73 @@
 ---
 import { SITE } from "@config";
+import Main from "@layouts/Main.astro";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import TeachingCard from "@components/TeachingCard.astro";
 ---
 
-<Layout title={`Teaching experience | ${SITE.title}`}>
-  <Header />
+<Layout title={`Teaching | ${SITE.title}`}>
+  <Header activeNav="teaching" />
+  <Main pageTitle="Teaching experience" pageDesc="">
+  </Main>
   <main id="main-content">
-      <TeachingCard
-	  institution="UW-Madison"
-	  startDate="2023-09-15"
-	  course="CS 240 Introduction to Discrete Mathematics"
-	  position="Grad TA">
-	  <ul class="list-disc list-inside">
-	      <li> Graded written assignments </li>
-	      <li> Held discussion sections and office hours </li>
-	      <li> Proctored exams </li>
-	  </ul>
-      </TeachingCard>
-      <TeachingCard
-	  institution="Cornell University"
-	  startDate="2023-01-15"
-	  course="CS 2802 Discrete Structures - Honors"
-	  position="Undergrad TA">
-	  <ul class="list-disc list-inside">
-	      <li> Graded programming and written assignments </li>
-	      <li> Held office hours </li>
-	  </ul>
-      </TeachingCard>
-      <TeachingCard
-	  institution="Cornell University"
-	  startDate="2022-01-15"
-	  course="CS 3110 Functional Programming"
-	  position="Undergrad TA">
-	  <ul class="list-disc list-inside">
-	      <li> Graded programming and written assignments </li>
-	      <li> Held discussion sections and office hours </li>
-	  </ul>
-      </TeachingCard>
-      <!--  -->
-      <TeachingCard
-	  institution="Cornell University"
-	  startDate="2021-08-15"
-	  course="CS 2112 OOP Design & Data Structures"
-	  position="Undergrad TA">
-	  <ul class="list-disc list-inside">
-	      <li> Graded programming and written assignments </li>
-	      <li> Held office hours </li>
-	  </ul>
-      </TeachingCard>
-      <!--  -->
-      <TeachingCard
-	  institution="Cornell University"
-	  startDate="2020-08-15"
-	  course="CS 2802 Discrete Structures - Honors"
-	  position="Undergrad TA">
-	  <ul class="list-disc list-inside">
-	      <li> Graded written assignments </li>
-	      <li> Helped design exam questions </li>
-	      <li> Held office hours </li>
-	  </ul>
-      </TeachingCard>
+    <TeachingCard
+	institution="UW-Madison"
+	startDate="2023-09-15"
+	course="CS 240 Introduction to Discrete Mathematics"
+	position="Graduate TA">
+      <ul class="list-disc list-inside">
+	<li> Graded written assignments </li>
+	<li> Held discussion sections and office hours </li>
+	<li> Proctored exams </li>
+      </ul>
+    </TeachingCard>
+    <TeachingCard
+	institution="Cornell University"
+	startDate="2023-01-15"
+	course="CS 2802 Discrete Structures - Honors"
+	position="Undergraduate TA">
+      <ul class="list-disc list-inside">
+	<li> Graded programming and written assignments </li>
+	<li> Held office hours </li>
+      </ul>
+    </TeachingCard>
+    <TeachingCard
+      institution="Cornell University"
+		   startDate="2022-01-15"
+		   course="CS 3110 Functional Programming"
+		   position="Undergraduate TA">
+      <ul class="list-disc list-inside">
+	<li> Graded programming and written assignments </li>
+	<li> Held discussion sections and office hours </li>
+      </ul>
+    </TeachingCard>
+    <!--  -->
+    <TeachingCard
+	institution="Cornell University"
+	startDate="2021-08-15"
+	course="CS 2112 OOP Design & Data Structures"
+	position="Undergraduate TA">
+      <ul class="list-disc list-inside">
+	<li> Graded programming and written assignments </li>
+	<li> Held office hours </li>
+      </ul>
+    </TeachingCard>
+    <!--  -->
+    <TeachingCard
+	institution="Cornell University"
+	startDate="2020-08-15"
+	course="CS 2802 Discrete Structures - Honors"
+	position="Undergraduate TA">
+      <ul class="list-disc list-inside">
+	<li> Graded written assignments </li>
+	<li> Helped design exam questions </li>
+	<li> Held office hours </li>
+      </ul>
+    </TeachingCard>
   </main>
-      <Footer />
+  <Footer />
 </Layout>
 
 <style>
