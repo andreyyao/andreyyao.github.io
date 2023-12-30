@@ -5,47 +5,25 @@ const { date } = Astro.props;
 ---
 
 <div class="news-section">
-  <div class="column">
-    <div>
-      <Datetime datetime={new Date(date)}> </Datetime>
-    </div>
+  <div class="prose text-lg font-normal max-w-3xl">
     <slot />
+  </div>
+  <div class="row">
+    <Datetime datetime={date}> </Datetime>
+  </div>
 </div>
 
 <style>
  /* Applying CSS for layout */
  .news-section {
    display: flex;
-   flex-direction: row;
-   padding: 20px 0px 0px 0px;
+   flex-direction: column;
+   padding: 0px 0px 20px 0px;
  }
- .date {
+ .row {
+   width: 100%;
    display: block;
-   padding: 0px 8px 0px 0px;
  }
- .column {
-   display: flex;
-   justify-content: space-between;
- }
- .left-column {
-   width: 50%;
-   height: 100%;
-   vertical-align: text-top;
-   display: flex;
- }
- .right-column {
-   width: 30%;
-   text-align: right;
- }
- .left {
-   text-align: left;
- }
- .right {
-   text-align: right;
- }
- .filled {
-   background-color: rgb(var(--color-faint-fill));
-   border-radius: 1px;
-   padding: 10px 5px 10px 5px;
+ .a {
  }
 </style>

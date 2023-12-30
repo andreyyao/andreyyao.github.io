@@ -1,0 +1,52 @@
+---
+import { SITE } from "@config";
+import Main from "@layouts/Main.astro";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import TeachingCard from "@components/TeachingCard.astro";
+import NewsSection from "@components/NewsSection.astro";
+
+const allNewsPosts = await Astro.glob(`../content/news/*.md`)
+const newsPosts =
+allNewsPosts
+.sort(
+    (a, b) =>
+    Math.floor(new Date(b.frontmatter.date).getTime() / 1000) -
+    Math.floor(new Date(a.frontmatter.date).getTime() / 1000)
+)
+.map(n => ({
+    date: n.frontmatter.date,
+    Content: n.Content
+}));
+---
+
+<Layout title={`Teaching | ${SITE.title}`}>
+  <Header activeNav="news" />
+  <Main pageTitle="News" pageDesc="">
+    <ul>
+      {
+      newsPosts
+      .map(({ date, Content }) => <NewsSection date={date}> <Content /> </NewsSection>)
+      }
+    </ul>
+  </Main>
+  <Footer />
+</Layout>
+
+<style>
+ /* ===== Featured & Recent Posts Sections ===== */
+ #news,
+ #featured,
+ #recent-posts {
+   @apply pb-6 pt-12;
+ }
+ #news h2,
+ #featured h2,
+ #recent-posts h2 {
+   @apply text-2xl font-semibold tracking-wide;
+ }
+ .all-posts-btn-wrapper {
+   @apply my-8 text-center;
+ }
+</style>

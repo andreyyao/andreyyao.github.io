@@ -26,7 +26,6 @@ const newsPosts =
     Content: n.Content
   }));
 
-
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 
@@ -91,8 +90,24 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           </section>
           <Hr />
         </>
-      )
-    }
+	)
+	}
+
+    <Hr />
+
+    <section id="news">
+      <h2>News</h2>
+      <br>
+      <ul>
+        {
+	newsPosts
+        .map(({ date, Content }, index) =>
+	  index < 3 && <NewsSection date={date}> <Content /> </NewsSection>)
+        }
+      </ul>
+    </section>
+
+    <Hr />
 
     <section id="recent-posts">
       <h2>Recent Posts</h2>
@@ -122,18 +137,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           </svg>
         </LinkButton>
       </div>
-    </section>
-
-    <Hr />
-
-    <section id="news">
-      <h2>News</h2>
-      <ul>
-        {
-	  newsPosts
-          .map(({ date, Content }) => <NewsSection date={date}> <Content /> </NewsSection>)
-        }
-      </ul>
     </section>
 
   </main>

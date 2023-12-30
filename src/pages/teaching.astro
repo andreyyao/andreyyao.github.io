@@ -9,10 +9,9 @@ import TeachingCard from "@components/TeachingCard.astro";
 
 <Layout title={`Teaching | ${SITE.title}`}>
   <Header activeNav="teaching" />
-  <Main pageTitle="Teaching experience" pageDesc="">
-  </Main>
-  <main id="main-content">
-    <TeachingCard
+  <Main pageTitle="Teaching" pageDesc="">
+    <div id="main-content">
+      <TeachingCard
 	institution="UW-Madison"
 	startDate="2023-09-15"
 	course="CS 240 Introduction to Discrete Mathematics"
@@ -22,8 +21,8 @@ import TeachingCard from "@components/TeachingCard.astro";
 	<li> Held discussion sections and office hours </li>
 	<li> Proctored exams </li>
       </ul>
-    </TeachingCard>
-    <TeachingCard
+      </TeachingCard>
+      <TeachingCard
 	institution="Cornell University"
 	startDate="2023-01-15"
 	course="CS 2802 Discrete Structures - Honors"
@@ -66,13 +65,14 @@ import TeachingCard from "@components/TeachingCard.astro";
 	<li> Held office hours </li>
       </ul>
     </TeachingCard>
-  </main>
+    </div>
+  </Main>
   <Footer />
 </Layout>
 
 <style>
  #main-content {
-   @apply mx-auto flex max-w-3xl flex-1 items-center justify-center;
+   @apply mx-auto flex flex-1 items-center;
    flex-direction: column;
  }
 </style>

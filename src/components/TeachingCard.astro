@@ -1,9 +1,10 @@
 ---
+import { LOCALE } from "@config";
 const { startDate, institution, course, position } = Astro.props
 
 const formatDate = (inputDate: string) => {
     const date = new Date(inputDate);
-    const month = date.toLocaleString('en-US', { month: 'short' });
+    const month = date.toLocaleString(LOCALE, { month: 'short' });
     const year = date.getFullYear();
     return `${month} ${year}`;
 };
