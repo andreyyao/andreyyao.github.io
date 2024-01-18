@@ -11,6 +11,7 @@ $$
 \gdef\step{\Rightarrow}
 \gdef\subst#1#2#3{#1[#2\mapsto #3]}
 \gdef\substt#1#2#3#4#5{#1[#2\mapsto #3, #4\mapsto #5]}
+\gdef\shift#1#2{\uparrow^{#1}_{#2}}
 $$
 
 # $$\lambda$$-calculus and operational semantics
@@ -20,7 +21,7 @@ _Operational semantics_ is a way to specify behaviors of programming languages b
 For example, considering the very famous lambda calculus, with syntax for variables, abstractions, and applications:
 
 $$
-e\;\coloneqq\;x\;|\;\lambda x.~e\;|\;e_1e_2
+e\;\coloneqq\;x\;|\;\lambda x.~e\;|\;e_1~e_2
 $$
 
 Suppose for the sake of examples that we also have numbers and arithmetic operators in the lambda calculus. Just intuitively, we know that the expression $$(\lambda x.~x+1)~42$$ should reduce to $$43$$. When we see this function application syntax, we bind the argument $$42$$ to the variable $$x$$ introduced by the lambda, and when we evaluate the body $$x+1$$, we know that the $$42$$ should be substituted for $$x$$ in the body.
@@ -61,10 +62,49 @@ where in addition to substituting $$e'$$ for $$x$$, we also expand free occurren
 
 Although explicitly variable names is essential for practical usage of programming languages, it introduces a lot of headache, as we previously hinted. For example, many metatheoretic results about lambda calculus (and its derivatives) are often framed with the caveat of "up to $$\alpha$$-equivalence". In the definition of substitution above, we also had a dubious _renaming_ operation, which needs to be able to come up with fresh variable names.
 
-A common solution is to switch to a nameless representation of binders using _De Bruijn indices_. In such representation, there are no variable names, and named variables are replaced by natural numbers which refer to how many levels of lambda binders out it refers to. For example, the expression $$\lambda x.~\lambda y.~x$$ is written as $$\lambda. ~\lambda.~1$$ in the nameless style.
+A common solution is to switch to a nameless representation of bound variables using _De Bruijn indices_. In such representation, there are no variable names, and bound variables are replaced by natural numbers which refer to how many levels of lambda binders out it refers to. For example, the expression $$\lambda x.~\lambda y.~x$$ is written as $$\lambda. ~\lambda.~1$$ in the nameless style.
 
 Since there are no more variable names, the subtitution operation will need to take care of re-indexing the variables. See this [lecture note](https://www.cs.cornell.edu/courses/cs4110/2018fa/lectures/lecture15.pdf) for a detailed definition of how to do so.
 
 One of the main advantages of De Bruijn indices is that $$\alpha$$-equivalence is not longer a concern at all. This makes it amenable for implementing proof assistants or other dependently typed languages. Yet another use case is in mechanized verification of programming language semantics in proof assistants like _Coq_ or _Agda_. In fact, this blog post is inspired by a problem I encountered when trying to formalize the semantics for a language for distributed systems in Coq.
 
 # Nameless recursive functions
+Say we want to formalize the operational semantics of a Turing-complete programming language in proof assistants. It will be nice to be able to combine De Bruijn indices and the explicit recursion we defined above. It turns out this is not so hard to do! The grammar is just ordinary nameless style lambda calculus:
+$$
+e\;\coloneqq\;x\;|\;\lambda.~e\;|\;e_1~e_2
+$$
+
+Although syntactically unchanged, the $$\lambda$$ case is semantically different. Now instead of binding one index, it binds *two* indices, one corresponding to the argument and one to the lambda itself. This is manifested in the new CBV semantics:
+
+$$
+\frac{e_1 \step e_1'}{e_1~e_2 \step e_1'~e_2}\quad
+\frac{e_2 \step e_2'}{(\lambda.~e_1)~e_2 \step (\lambda.~e_1)~e_2'}\quad
+\frac{\;}{(\lambda.~e)~v \step \substt{e}{0}{v}{1}{(\lambda.~e)}}
+$$
+
+Substitution is very straightforward. Since this is CBV and not full reduction, we don't need to shift open indices:
+$$
+\begin{align*}
+\substt{n}{m}{v_1}{(m+1)}{v_2} &\triangleq
+  \begin{cases}
+  v_1 \quad \text{if }n=m\\
+  v_2 \quad \text{if }n=m+1\\
+  n \quad \text{otherwise}
+  \end{cases}\\
+\substt{(\lambda.~e)}{m}{v_1}{(m+1)}{v_2} &\triangleq \lambda.~(\substt{e}{(m+2)}{v_1}{(m+3)}{v_2})\\
+\substt{(e_1~e_2)}{m}{v_1}{(m+1)}{v_2} &\triangleq (\substt{e_1}{m}{v_1}{(m+1)}{v_2})~(\substt{e_2}{m}{v_1}{(m+1)}{v_2})
+\end{align*}
+$$
+
+For example, the OCaml recursive function `let rec f x = f x` can be expressed in our calculus as $$\lambda.~1 ~0$$. For a sanity check, let's try to $$\beta$$-reduce the expression with some argument:
+
+$$
+\begin{align*}
+&(\lambda.~1 ~0)~v \\
+\step &\substt{(1~0)}{0}{v}{1}{(\lambda.~1 ~0)}\\
+= &(\substt{1}{0}{v}{1}{(\lambda.~1 ~0)})~(\substt{0}{0}{v}{1}{(\lambda.~1 ~0)})\\
+= &(\lambda.~1 ~0)~v
+\end{align*}
+$$
+
+Note that introducing a binder increments the indices by $$2$$, so the function $$\lambda f.~\lambda x.~(f~x)$$ (which is *not* recursive) in regular lambda calculus is represented as $$\lambda.~\lambda.~(2~0)$$ in our formulation.
