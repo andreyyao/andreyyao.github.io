@@ -12,7 +12,7 @@ $$
 \gdef\step{\Rightarrow}
 \gdef\subst#1#2#3{#1[#2\mapsto #3]}
 \gdef\substt#1#2#3#4#5{#1[#2\mapsto #3, #4\mapsto #5]}
-\gdef\shift#1#2{\uparrow^{#1}_{#2}}
+\gdef\upup{\Uparrow\Uparrow}
 $$
 
 # $$\lambda$$-calculus and operational semantics
@@ -83,7 +83,17 @@ $$
 \frac{\;}{(\lambda.~e)~v \step \substt{e}{0}{v}{1}{(\lambda.~e)}}
 $$
 
-Substitution is very straightforward. Since this is CBV and not full reduction, we don't need to shift open indices:
+A quick note for notation: $$[m\mapsto v_1,~m+1\mapsto v_2]$$ denotes the infinite parallel substitution that maps the indices $$n$$ to $$v_1$$, $$m+1$$ to $$v_2$$, and all other indices unchanged. Given an infinite parallel substitution $$\sigma$$, which is just a function from natural numbers to expressions, the "double up" operator $$\upup$$ applied to $$\sigma$$ yields a new substitution with the indices shifted up by two. For example, this can written as a fairly short inductive definition in languages like OCaml or Gallina:
+
+```ocaml
+let rec upup (sigma : nat -> expr) =
+  function
+  | 0 -> Var 0
+  | S 0 -> Var 1
+  | S (S n') -> sigma n'
+```
+
+Now, applying substitutions to expressions is very straightforward. Since this is CBV and not full reduction, we don't need to shift open indices:
 $$
 \begin{align*}
 \substt{n}{m}{v_1}{(m+1)}{v_2} &\triangleq
