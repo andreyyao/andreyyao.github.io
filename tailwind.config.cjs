@@ -19,13 +19,13 @@ module.exports = {
 
     // Uncomment the following extend
     // if existing Tailwind color palette will be used
-
-    // extend: {
-    textColor: {
-      skin: {
-        base: withOpacity("--color-text-base"),
-        accent: withOpacity("--color-accent"),
-        inverted: withOpacity("--color-fill"),
+    extend: {
+      textColor: {
+        skin: {
+          base: withOpacity("--color-text-base"),
+          accent: withOpacity("--color-accent"),
+          inverted: withOpacity("--color-fill"),
+        },
       },
     },
     backgroundColor: {

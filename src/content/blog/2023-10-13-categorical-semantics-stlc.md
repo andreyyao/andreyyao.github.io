@@ -1,6 +1,7 @@
 ---
 title: Categorical Semantics of Simply Typed Lambda Calculus
 pubDatetime: 2023-10-13T12:00:00Z
+modDatetime: 2023-10-13T12:00:00Z
 description: The Curry-Howard-Lambek correspondence
 tags:
   - category

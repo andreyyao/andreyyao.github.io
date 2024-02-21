@@ -5,19 +5,16 @@ import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Card from "@components/Card";
-import LinkButton from "@components/LinkButton.astro";
+import Pagination from "@components/Pagination.astro";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  pageNum: number;
-  totalPages: number;
-  posts: CollectionEntry<"blog">[];
+    currentPage: number;
+    totalPages: number;
+    paginatedPosts: CollectionEntry<"blog">[];
 }
 
-const { pageNum, totalPages, posts } = Astro.props;
-
-const prev = pageNum > 1 ? "" : "disabled";
-const next = pageNum < totalPages ? "" : "disabled";
+const { currentPage, totalPages, paginatedPosts } = Astro.props;
 ---
 
 <Layout title={`Blog | ${SITE.title}`}>
@@ -25,52 +22,18 @@ const next = pageNum < totalPages ? "" : "disabled";
   <Main pageTitle="Blog" pageDesc="">
     <ul>
       {
-        posts.map(({ data, slug }) => (
+        paginatedPosts.map(({ data, slug }) => (
           <Card href={`/blog/${slug}`} frontmatter={data} />
         ))
-      }
+
     </ul>
   </Main>
 
-  {
-    totalPages > 1 && (
-      <nav class="pagination-wrapper" aria-label="Pagination">
-        <LinkButton
-          disabled={prev === "disabled"}
-          href={`/blog${pageNum - 1 !== 1 ? "/" + (pageNum - 1) : ""}`}
-          className={`mr-4 select-none ${prev}`}
-          ariaLabel="Previous"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class={`${prev}-svg`}>
-            <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
-          </svg>
-          Prev
-        </LinkButton>
-        <LinkButton
-          disabled={next === "disabled"}
-          href={`/blog/${pageNum + 1}`}
-          className={`ml-4 select-none ${next}`}
-          ariaLabel="Next"
-        >
-          Next
-          <svg xmlns="http://www.w3.org/2000/svg" class={`${next}-svg`}>
-            <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
-          </svg>
-        </LinkButton>
-      </nav>
-    )
-  }
+  <Pagination
+      {currentPage}
+      {totalPages}
+      prevUrl={`/blog${currentPage - 1 !== 1 ? "/" + (currentPage - 1) : ""}/`}
+      nextUrl={`/blog/${currentPage + 1}/`}
+  />
   <Footer noMarginTop={totalPages > 1} />
 </Layout>
-
-<style>
-  .pagination-wrapper {
-    @apply mb-8 mt-auto flex justify-center;
-  }
-  .disabled {
-    @apply pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base;
-  }
-  .disabled-svg {
-    @apply group-hover:!fill-skin-base;
-  }
-</style>
