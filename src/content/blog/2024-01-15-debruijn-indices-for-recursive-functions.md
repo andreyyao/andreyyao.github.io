@@ -93,17 +93,14 @@ let rec upup (sigma : nat -> expr) =
   | S (S n') -> sigma n'
 ```
 
+We call it "double up" because it is nothing more than applying the conventional $$\Uparrow$$ twice.
+
 Now, applying substitutions to expressions is very straightforward. Since this is CBV and not full reduction, we don't need to shift open indices:
 $$
 \begin{align*}
-\substt{n}{m}{v_1}{(m+1)}{v_2} &\triangleq
-  \begin{cases}
-  v_1 \quad \text{if }n=m\\
-  v_2 \quad \text{if }n=m+1\\
-  n \quad \text{otherwise}
-  \end{cases}\\
-\substt{(\lambda.~e)}{m}{v_1}{(m+1)}{v_2} &\triangleq \lambda.~(\substt{e}{(m+2)}{v_1}{(m+3)}{v_2})\\
-\substt{(e_1~e_2)}{m}{v_1}{(m+1)}{v_2} &\triangleq (\substt{e_1}{m}{v_1}{(m+1)}{v_2})~(\substt{e_2}{m}{v_1}{(m+1)}{v_2})
+n[\sigma] &\triangleq \sigma(n)\\
+(\lambda.~e)[\sigma] &\triangleq \lambda.~(e[\upup\sigma])\\
+(e_1~e_2)[\sigma] &\triangleq (e_1[\sigma])~(e_2[\sigma])
 \end{align*}
 $$
 
@@ -118,4 +115,4 @@ $$
 \end{align*}
 $$
 
-Note that introducing a binder increments the indices by $$2$$, so the function $$\lambda f.~\lambda x.~(f~x)$$ (which is *not* recursive) in regular lambda calculus is represented as $$\lambda.~\lambda.~(2~0)$$ in our formulation.
+Note that since introducing a binder increments the indices by $$2$$, the function $$\lambda f.~\lambda x.~(f~x)$$ (which is *not* recursive) in regular lambda calculus is represented as $$\lambda.~\lambda.~(2~0)$$ in our formulation.
