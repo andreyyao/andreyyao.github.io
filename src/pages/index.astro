@@ -55,10 +55,10 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       </a>
 
       <p>
-        I am a first year CS PhD student at the University of Wisconsin-Madison. Programming languages is my main area of interest, and I am involved in the MadPL group. My current work resolves around ways of preventing code from being run. No, really, type systems ensures correct and secure code by rejecting large classes of mistakes and attacks. This is especially important when dealing with complex programs, such as distributed systems. I also like to study the behavior of programming languages by considering their denotational semantics.
+        I am a second year CS PhD student at the University of Wisconsin-Madison working with Prof. Ethan Cecchetti. I am passionate about the theory behind programming languages, especially when applied to distributed computation and security. My current project focuses on designing novel language semantics for choreographic programming, an emerging paradigm for programming parallel processes with language-level guarantees like deadlock-freedom. I am also very interested in denotational semantics of programming languages using concepts from category theory and topology.
       </p>
       <p>
-        Prior to starting my PhD, I earned my Bachelor’s degree in computer science and mathematics at Cornell University.
+        I earned my Bachelor’s degree in computer science and mathematics at Cornell University, where I did programming languages research with Prof. Alexandra Silva.
      </p>
       {
         // only display if at least one social link is enabled
@@ -105,12 +105,22 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 	  index < 3 && <NewsSection date={date}> <Content /> </NewsSection>)
         }
       </ul>
+      <div class="btn-wrapper">
+        <LinkButton href="/news">
+          News
+          <svg xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+            ></path>
+          </svg>
+        </LinkButton>
+      </div>
     </section>
 
     <Hr />
 
     <section id="recent-posts">
-      <h2>Recent Posts</h2>
+      <h2>Blog</h2>
       <ul>
         {
           sortedPosts
@@ -127,7 +137,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
             )
         }
       </ul>
-      <div class="all-posts-btn-wrapper">
+      <div class="btn-wrapper">
         <LinkButton href="/blog">
           Blog
           <svg xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +189,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   #recent-posts h2 {
     @apply text-2xl font-semibold tracking-wide;
   }
-  .all-posts-btn-wrapper {
-    @apply my-8 text-center;
+  .btn-wrapper {
+    @apply my-4 text-center;
   }
 </style>
