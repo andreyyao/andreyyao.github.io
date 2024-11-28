@@ -64,7 +64,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
         // only display if at least one social link is enabled
         socialCount > 0 && (
           <div class="social-wrapper">
-            <div class="social-links">Contacts:</div>
             <Socials />
           </div>
         )
@@ -90,8 +89,8 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           </section>
           <Hr />
         </>
-	)
-	}
+        )
+        }
 
     <Hr />
 
@@ -100,9 +99,9 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       <br>
       <ul>
         {
-	newsPosts
+        newsPosts
         .map(({ date, Content }, index) =>
-	  index < 3 && <NewsSection date={date}> <Content /> </NewsSection>)
+          index < 3 && <NewsSection date={date}> <Content /> </NewsSection>)
         }
       </ul>
       <div class="btn-wrapper">
