@@ -1,5 +1,4 @@
 ---
-import CollectionEntry from "astro:content";
 import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
@@ -8,11 +7,10 @@ import LinkButton from "@components/LinkButton.astro";
 import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
-import NewsSection from "@components/NewsSection.astro"
+import NewsSection from "@components/NewsSection.astro";
 import getSortedPosts from "@utils/getSortedPosts";
-import { SOCIALS } from "@config";
+import { SITE, SOCIALS } from "@config";
 
-const posts = await getCollection("blog");
 const allNewsPosts = await Astro.glob(`../content/news/*.md`)
 const newsPosts =
 allNewsPosts
@@ -26,7 +24,7 @@ allNewsPosts
     Content: n.Content
 }));
 
-
+const posts = await getCollection("blog");
 const recentPosts = getSortedPosts(posts);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
@@ -99,21 +97,19 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     <section id="recent-posts">
       <h2>Blog</h2>
       <ul>
-        {
-          recentPosts.map(
-              ({ data, slug }, index) =>
-                index < 4 && (
-                  <Card
-                    href={`/blog/${slug}`}
-                    frontmatter={data}
-                    secHeading={false}
-                  />
-                )
-            )
-        }
+        {recentPosts.map(
+           ({ data, slug }, index) =>
+             index < SITE.postPerIndex && (
+                <Card
+                  href={`/blog/${slug}`}
+                  frontmatter={data}
+                  secHeading={false}
+                />
+           )
+        )}
       </ul>
       <div class="btn-wrapper">
-        <LinkButton href="/blog">
+        <LinkButton href="/blog/">
           Blog
           <svg xmlns="http://www.w3.org/2000/svg"
             ><path
