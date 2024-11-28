@@ -15,6 +15,7 @@ $$
 \gdef\step{\Rightarrow}
 \gdef\id{\text{id}}
 \gdef\pair#1#2{\langle {#1}, {#2}\rangle}
+\gdef\infer#1#2#3{\dfrac{#2}{#3}\texttt{#1}}
 \gdef\semant#1{\llbracket {#1} \rrbracket}
 $$
 
@@ -22,7 +23,7 @@ $$
 
 Programs are complicated. How do we develop a better understanding of how they work? _Denotational semantics_ is the subarea of programming languages where people study the behaviors of programs by mapping them into some _semantic domain_ of mathematical objects.
 
-The [_lambda calculus_](https://www.cs.cornell.edu/courses/cs6110/2023sp/lectures/lec02.pdf) is one of the simplest programming languages there is. Written in Backus-Naur form (BNF), it only has three kinds of expressions:
+The _lambda calculus_ is one of the simplest programming languages there is. Written in Backus-Naur form (BNF), it only has three kinds of expressions:
 
 $$
 e\;:=\;x\;|\;\lambda x.e\;|\;e_1\;e_2
@@ -32,7 +33,7 @@ which stands for variable, function abstraction, and function application. Despi
 
 ## Computational trilogy
 
-We will focus our attention on [simply typed lambda calculus](https://en.wikipedia.org/wiki/Simply_typed_lambda_calculus)(STLC). STLC adds types to the (pure) lambda calculus. As a programming language, STLC is _strongly normalizing_, meaning that every well-typed term will eventually evaluate to a normal form. That shouldn't be discouraging, since STLC is closely connected to intuitionistic logic, via the _Curry-Howard correspondence_. It turns out that logic and type systems are both connected to _category theory_ via the so-called _Curry-Howard-Lambek_ correspondence.
+We will focus our attention on _simply typed lambda calculus_(STLC). STLC adds types to the (pure) lambda calculus. As a programming language, STLC is _strongly normalizing_, meaning that every well-typed term will eventually evaluate to a normal form. That shouldn't be discouraging, since STLC is closely connected to intuitionistic logic, via the _Curry-Howard correspondence_. It turns out that logic and type systems are both connected to _category theory_ via the so-called _Curry-Howard-Lambek_ correspondence.
 
 The goal of this post is to explicitly spell out a categorical semantics of STLC. I was unable to find proofs for the following table taken from this [nlab page](https://ncatlab.org/nlab/show/computational+trilogy) on "computational trilogy", so I figured it will be a fun exercise to spell them out here.
 
