@@ -31,17 +31,17 @@ export default defineConfig({
     ],
     rehypePlugins: [
       [ rehypeKatex,
-	{
-	  globalGroup: true,
-	  macros: {
-	    '\\semant': '\\llbracket{#1}\\rrbracket',
-	    '\\infer': '\\dfrac{#2}{#3}\\texttt{#1}',
-	  }
-	}
+        {
+          globalGroup: true,
+          macros: {
+            '\\semant': '\\llbracket{#1}\\rrbracket',
+            '\\infer': '\\dfrac{#2}{#3}\\texttt{#1}',
+          }
+        }
       ]
     ],
     shikiConfig: {
-      theme: "one-dark-pro",
+      themes: { light: "min-light", dark: "night-owl" },
       wrap: true,
     },
   },
