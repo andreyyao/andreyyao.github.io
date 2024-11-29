@@ -7,6 +7,7 @@ tags:
   - category theory
   - topology
   - pl
+draft: true
 ---
 
 $$
@@ -25,7 +26,7 @@ Whenever I encounter a new mathematical concept, I always try to apply it to sim
 
 A natural setting of considering bijections on a set is via *group actions*. A group action of some group $G$ on $X$ is a (heterogenous) binary operation $\star$ satisfying $(gh)\star x=g\star (h\star x)$ for all $g,h\in G$ and $x\in X$. The set of all bijections on $X$ form the symmetric group $\sym(X)$. A group action can then also be viewed as a homomorphism $\varphi: G\to\sym(X)$. For example, $\sym(X)$ acts on $X$ in the obvious way.
 
-For any $x\in X$, the *orbit* of $x$ under the group action is the set $\{g\star x \alt g\in G\}$. It is the set of elements reachable by multiplying by a group element. It is easy to verify that the set of orbits partition $X$, i.e. they are equivalence classes. For any $g\in G$, we can also consider the set of fixpoints under $g$, $X^g\triangleq \{x \alt g\star x = x\}$. Then, we have the following theorem:
+For any $x\in X$, the *orbit* of $x$ under the group action is the set $\{g\star x \alt g\in G\}$. It is the set of elements reachable by multiplying $x$ by a group element. It is easy to verify that the set of orbits partition $X$, i.e. they are equivalence classes. For any $g\in G$, we can also consider the set of fixpoints under $g$, $X^g\triangleq \{x \alt g\star x = x\}$. Then, we have the following theorem:
 
 **Theorem (Burnside's Lemma):**
 $$\displaystyle\#\text{orbits} = \frac{1}{|G|}\sum_{g\in G}|X^g|$$
