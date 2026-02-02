@@ -23,39 +23,31 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Andrey Yao
-      </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
+      <div class="flex flex-row">
+        <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
+          Andrey Yao
+        </h1>
+          &nbsp; &nbsp;
+        {
+          // only display if at least one social link is enabled
+          SOCIALS.length > 0 && (
+            <div class="mt-4 flex max-sm:flex-col sm:items-center">
+              <Socials />
+            </div>
+          )
+        }
+      </div>
       <p>
-        I am a third year CS PhD student at the University of Wisconsin-Madison working with Prof. Ethan Cecchetti. My main interest is using techniques from programming languages and formal methods to build foundations for safe and reliable software. In particular, I design type systems for languages specialized in concurrent computation and security.
-        <br>
-        <br>
+        I am a third year CS PhD student at the University of Wisconsin-Madison working with Prof. Ethan Cecchetti. My main interest is using techniques from programming languages and formal methods to build foundations for safe and reliable software. In particular, I design <b>type systems</b> for languages specialized in <b>concurrent computation</b> and <b>security</b>.
+      </p>
+      <br>
+      <p>
         My current project involves ensuring confidentiality via an information-flow type system for a language with call-by-need evaluation. In the past, I have also done work on choreographic programming, an emerging paradigm for programming parallel processes with language-level guarantees like deadlock-freedom. I am also interested in semantics for concurrent programs and formal verification, especially relating to proof assistants.
       </p>
-      {
-        // only display if at least one social link is enabled
-        SOCIALS.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            <Socials />
-          </div>
-        )
-      }
+      <br>
+      <p>
+        Before my PhD, I earned my bachelor's degree in computer science and mathematics at Cornell University.
+      </p>
     </section>
 
     {
