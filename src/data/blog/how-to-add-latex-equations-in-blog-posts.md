@@ -117,6 +117,8 @@ Inline equations are written between single dollar signs `$...$`. Here are some 
 
 ## Block Equations
 
+$$\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}$$
+
 For more complex equations or when you want the equation to be displayed on its own line, use double dollar signs `$$...$$`:
 
 The Gaussian integral:
