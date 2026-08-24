@@ -32,6 +32,9 @@ importers:
       lodash.kebabcase:
         specifier: ^4.1.1
         version: 4.1.1
+      node:
+        specifier: ~24.0.2
+        version: 24.0.2
       rehype-katex:
         specifier: ^7.0.1
         version: 7.0.1
@@ -2360,11 +2363,19 @@ packages:
   nlcst-to-string@4.0.0:
     resolution: {integrity: sha512-YKLBCcUYKAg0FNlOBT6aI91qFmSiFKiluk655WzPF+DDMA02qIyy8uiRqI8QXtcFpEvll12LpL5MXqEmAZ+dcA==}
 
+  node-bin-setup@1.1.4:
+    resolution: {integrity: sha512-vWNHOne0ZUavArqPP5LJta50+S8R261Fr5SvGul37HbEDcowvLjwdvd0ZeSr0r2lTSrPxl6okq9QUw8BFGiAxA==}
+
   node-fetch-native@1.6.7:
     resolution: {integrity: sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q==}
 
   node-mock-http@1.0.5:
     resolution: {integrity: sha512-KQyt/wLjG3TAc7DOUhpqWzgd4ERxR80JOlTK5VE5R1S12IaPVN5qkj4klBce9HPG1Njuup4Sb5bljaT34lIyjw==}
+
+  node@24.0.2:
+    resolution: {integrity: sha512-Vc4U87s/UbytiAVvcRgrh6ifVwml/EntYYOclOVIiFaNgJ8wthLriAsi9H7fOOl4UM/Zpt/4ydjKqMeJgvsWSg==}
+    engines: {npm: '>=5.0.0'}
+    hasBin: true
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -5647,9 +5658,15 @@ snapshots:
     dependencies:
       '@types/nlcst': 2.0.3
 
+  node-bin-setup@1.1.4: {}
+
   node-fetch-native@1.6.7: {}
 
   node-mock-http@1.0.5: {}
+
+  node@24.0.2:
+    dependencies:
+      node-bin-setup: 1.1.4
 
   normalize-path@3.0.0: {}
 

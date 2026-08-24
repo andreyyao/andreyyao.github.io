@@ -1,5 +1,6 @@
 allowBuilds:
   esbuild: true
+  node: true
   sharp: true
 minimumReleaseAgeExclude:
   - brace-expansion@1.1.12
